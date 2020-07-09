@@ -13,6 +13,7 @@
     justify-content: center;
     align-items: center;
     background: url(/assets/background.jpg);
+    background-size: cover;
   }
   
   .row::after {
@@ -36,7 +37,6 @@
     margin-top: 6%;
     margin-left: 15%;
     margin-right: 10%;
-    margin-bottom: 5%;
     border-top: solid 3px white;
     border-left: solid 3px white;
     border-bottom: solid 3px grey;
