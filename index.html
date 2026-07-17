@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wanner Menezes</title>
+
+  <!-- Link para o CSS que estiliza toda a interface estilo Windows XP -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ========================================================= -->
+  <!-- ÁREA DE TRABALHO (DESKTOP)                                 -->
+  <!-- Aqui ficam os ícones que o usuário clica para abrir janelas -->
+  <!-- ========================================================= -->
+  <div id="desktop">
+
+    <!-- Cada ícone tem um atributo "data-window" que diz qual
+         janela ele deve abrir. O JS usa esse atributo para saber
+         o que fazer quando o ícone é clicado. -->
+    <div class="desktop-icon" data-window="about">
+      <span class="icon-emoji">🖥</span>
+      <span class="icon-label">About Me</span>
+    </div>
+
+    <div class="desktop-icon" data-window="resume">
+      <span class="icon-emoji">📄</span>
+      <span class="icon-label">Resume.pdf</span>
+    </div>
+
+    <div class="desktop-icon" data-window="experience">
+      <span class="icon-emoji">💼</span>
+      <span class="icon-label">Experience</span>
+    </div>
+
+    <div class="desktop-icon" data-window="skills">
+      <span class="icon-emoji">⚙</span>
+      <span class="icon-label">Skills</span>
+    </div>
+
+    <div class="desktop-icon" data-window="projects">
+      <span class="icon-emoji">🧪</span>
+      <span class="icon-label">Projects</span>
+    </div>
+
+    <div class="desktop-icon" data-window="contact">
+      <span class="icon-emoji">📧</span>
+      <span class="icon-label">Contact</span>
+    </div>
+
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- JANELAS (WINDOWS)                                          -->
+  <!-- Cada janela começa escondida (classe "hidden") e o JS      -->
+  <!-- mostra/esconde/arrasta cada uma delas.                     -->
+  <!-- ========================================================= -->
+  <div id="windows-container">
+
+    <!-- ---------- Janela: About Me ---------- -->
+    <div class="xp-window hidden" id="window-about" data-window-id="about">
+      <!-- Barra de título: nome da janela + botões minimizar/maximizar/fechar -->
+      <div class="title-bar">
+        <div class="title-bar-text">
+          <span class="icon-emoji small">👤</span> About Me
+        </div>
+        <div class="title-bar-controls">
+          <button class="btn-minimize" title="Minimizar">_</button>
+          <button class="btn-maximize" title="Maximizar">□</button>
+          <button class="btn-close" title="Fechar">X</button>
+        </div>
+      </div>
+
+      <div class="window-body">
+        <div class="about-content">
+          <img src="assets/avatar.png" alt="Foto de Wanner Menezes" class="avatar" />
+          <div class="about-text">
+            <h2>Wanner Menezes</h2>
+            <h3>Software Engineer | Quality Engineer</h3>
+            <p class="subtitle">MSc - Universidade de São Paulo (USP)</p>
+            <hr />
+            <p>
+              Hello! I am a software engineer with 5+ years of experience. 
+              Specializing in software quality, API validation, functional testing, 
+              database manipulation, troubleshooting and system integration. 
+              Experienced collaborating with distributed engineering teams and direct 
+              communication with customers across different regions/timezones.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- Janela: Resume ---------- -->
+    <div class="xp-window hidden" id="window-resume" data-window-id="resume">
+      <div class="title-bar">
+        <div class="title-bar-text">
+          <span class="icon-emoji small">📄</span> Resume.pdf
+        </div>
+        <div class="title-bar-controls">
+          <button class="btn-minimize" title="Minimizar">_</button>
+          <button class="btn-maximize" title="Maximizar">□</button>
+          <button class="btn-close" title="Fechar">X</button>
+        </div>
+      </div>
+
+      <div class="window-body">
+        <p>Click below to open my resume in PDF format.</p>
+
+        <!-- target="_blank" abre o PDF em uma nova aba do navegador -->
+        <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="xp-button open-resume-btn">
+          📄 Open_Resume.pdf
+        </a>
+      </div>
+    </div>
+
+    <!-- ---------- Janela: Experience ---------- -->
+    <div class="xp-window hidden" id="window-experience" data-window-id="experience">
+      <div class="title-bar">
+        <div class="title-bar-text">
+          <span class="icon-emoji small">💼</span> Experience
+        </div>
+        <div class="title-bar-controls">
+          <button class="btn-minimize" title="Minimizar">_</button>
+          <button class="btn-maximize" title="Maximizar">□</button>
+          <button class="btn-close" title="Fechar">X</button>
+        </div>
+      </div>
+
+      <div class="window-body">
+        <ul class="timeline-list">
+          <li>
+            <strong>Software Engineer</strong> — Amdocs
+            <span class="date">Jan. 2021 - Present</span>
+            <p>Validated features, APIs, and integrations with customer.</p>
+            <p>Created tools and scripts to automate tests and repetitive tasks.</p>
+            <p>Troubleshooting of issues in production environments.</p>
+          </li>
+          <li>
+            <strong>Software Engineer Trainee</strong> — QW3 Digital Technologies
+            <span class="date">Sep. 2020 - Dec. 2020</span>
+            <p>Developed web applications using Ruby on Rails.</p>
+          </li>
+          <li>
+            <strong>Graduate Researcher</strong> — USP/CNPq
+            <span class="date">Aug. 2018 - Oct. 2023</span>
+            <p>Conducted research in Computer Science during the Master’s Program.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ---------- Janela: Skills ---------- -->
+    <div class="xp-window hidden" id="window-skills" data-window-id="skills">
+      <div class="title-bar">
+        <div class="title-bar-text">
+          <span class="icon-emoji small">⚙</span> Skills
+        </div>
+        <div class="title-bar-controls">
+          <button class="btn-minimize" title="Minimizar">_</button>
+          <button class="btn-maximize" title="Maximizar">□</button>
+          <button class="btn-close" title="Fechar">X</button>
+        </div>
+      </div>
+
+      <div class="window-body">
+        <div class="skills-grid">
+          <div class="skill-item">Software Quality</div>
+          <div class="skill-item">API Validation</div>
+          <div class="skill-item">System Integration</div>
+          <div class="skill-item">Troubleshooting</div>
+          <div class="skill-item">Customer Collaboration</div>
+          <div class="skill-item">SQL</div>
+          <div class="skill-item">REST APIs</div>
+          <div class="skill-item">SOAP</div>
+          <div class="skill-item">Linux</div>
+          <div class="skill-item">JavaScript</div>
+          <div class="skill-item">Node.js</div>
+          <div class="skill-item">React.js</div>
+          <div class="skill-item">Vue.js</div>
+          <div class="skill-item">Java</div>
+          <div class="skill-item">Python</div>
+          <div class="skill-item">Shell</div>
+          <div class="skill-item">HTML/CSS</div>
+          <div class="skill-item">XML</div>
+          <div class="skill-item">Git</div>
+          <div class="skill-item">Jira</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- Janela: Projects ---------- -->
+    <div class="xp-window hidden" id="window-projects" data-window-id="projects">
+      <div class="title-bar">
+        <div class="title-bar-text">
+          <span class="icon-emoji small">🧪</span> Projects
+        </div>
+        <div class="title-bar-controls">
+          <button class="btn-minimize" title="Minimizar">_</button>
+          <button class="btn-maximize" title="Maximizar">□</button>
+          <button class="btn-close" title="Fechar">X</button>
+        </div>
+      </div>
+
+      <div class="window-body">
+        <div class="project-card">
+          <h3>🖥 WinXP Website</h3>
+          <p>This project itself! A mini operating system built with HTML, CSS, and pure JavaScript.</p>
+        </div>
+        <div class="project-card">
+          <h3>⚽ FutTV</h3>
+          <p>A web application for tracking Football matches, standings, broadcasts, lineups, and live match information.</p>
+        </div>
+        <div class="project-card">
+          <h3>⚡️ Electrochemical Converter</h3>
+          <p>A web application for converting potentials between common electrochemical reference electrodes (SHE, RHE, SCE, Ag/AgCl, HgO).</p>
+        </div>
+        <p>Check them all on my <a href="https://github.com/owanner" target="_blank" rel="noopener noreferrer">GitHub</a> page!</p>
+      </div>
+    </div>
+
+    <!-- ---------- Janela: Contact ---------- -->
+    <div class="xp-window hidden" id="window-contact" data-window-id="contact">
+      <div class="title-bar">
+        <div class="title-bar-text">
+          <span class="icon-emoji small">📧</span> Contact
+        </div>
+        <div class="title-bar-controls">
+          <button class="btn-minimize" title="Minimizar">_</button>
+          <button class="btn-maximize" title="Maximizar">□</button>
+          <button class="btn-close" title="Fechar">X</button>
+        </div>
+      </div>
+
+      <div class="window-body">
+        <p>Reach me at:</p>
+        <ul class="contact-list">
+          <!-- Como o site é 100% estático, usamos link "mailto" para abrir
+               o programa de e-mail do usuário, sem precisar de backend -->
+          <li>📧 <a href="mailto:wannermm@gmail.com">wannermm@gmail.com</a></li>
+          <li>💼 <a href="https://www.linkedin.com/in/wannermenezes/" target="_blank" rel="noopener noreferrer">linkedin.com/in/wannermenezes</a></li>
+          <li>🐙 <a href="https://github.com/owanner" target="_blank" rel="noopener noreferrer">github.com/owanner</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MENU INICIAR (START MENU)                                  -->
+  <!-- Fica escondido até o usuário clicar no botão "Start"       -->
+  <!-- ========================================================= -->
+  <div id="start-menu" class="hidden">
+    <div class="start-menu-header">
+      <img src="assets/avatar.png" alt="Avatar" class="start-avatar" />
+      <span>Wanner Menezes</span>
+    </div>
+    <ul class="start-menu-list">
+      <li data-window="about"><span class="icon-emoji small">🖥</span> About Me</li>
+      <li data-window="resume"><span class="icon-emoji small">📄</span> Resume.pdf</li>
+      <li data-window="experience"><span class="icon-emoji small">💼</span> Experience</li>
+      <li data-window="skills"><span class="icon-emoji small">⚙</span> Skills</li>
+      <li data-window="projects"><span class="icon-emoji small">🧪</span> Projects</li>
+      <li data-window="contact"><span class="icon-emoji small">📧</span> Contact</li>
+    </ul>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- BARRA DE TAREFAS (TASKBAR)                                 -->
+  <!-- Fica sempre fixa na parte de baixo da tela                 -->
+  <!-- ========================================================= -->
+  <div id="taskbar">
+
+    <!-- Botão Start, no canto esquerdo -->
+    <button id="start-button">
+      <span class="start-icon">🟢</span> Start
+    </button>
+
+    <!-- Aqui o JS insere um botão para cada janela aberta -->
+    <div id="taskbar-open-windows"></div>
+
+    <!-- Relógio no canto direito, atualizado pelo JS -->
+    <div id="taskbar-clock">00:00</div>
+  </div>
+
+  <!-- JS fica no final do body para carregar depois do HTML -->
+  <script src="js/desktop.js"></script>
+</body>
+</html>

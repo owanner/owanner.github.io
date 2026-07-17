@@ -1,0 +1,579 @@
+/* =============================================================
+   style.css
+   Tema visual "Windows XP" para o portfolio estático.
+
+   Este arquivo está organizado em seções para facilitar a leitura:
+   1. Reset básico e variáveis de cor
+   2. Desktop e ícones
+   3. Janelas (windows)
+   4. Menu Start
+   5. Taskbar (barra de tarefas)
+   6. Animações
+   7. Responsividade (telas pequenas)
+   ============================================================= */
+
+
+/* -------------------------------------------------------------
+   1. RESET BÁSICO E VARIÁVEIS DE COR
+   Usamos "variáveis CSS" (--nome-da-cor) para deixar fácil trocar
+   as cores do tema inteiro em um único lugar.
+   ------------------------------------------------------------- */
+:root {
+  --xp-blue-dark: #0a246a;      /* azul escuro da barra de título */
+  --xp-blue-light: #3a6ea5;     /* azul claro da barra de título (gradiente) */
+  --xp-blue-glow: #a6caf0;      /* azul clarinho usado em bordas */
+  --xp-taskbar-start: #237a2c;  /* verde do botão Start */
+  --xp-taskbar-bg: #1a5cc4;     /* azul da barra de tarefas */
+  --xp-window-bg: #ece9d8;      /* bege clássico do "corpo" das janelas XP */
+  --xp-border-gray: #7a95c4;    /* cinza-azulado das bordas */
+  --xp-text-dark: #1a1a1a;
+  --xp-font: "Tahoma", "Segoe UI", Arial, sans-serif; /* fonte usada pelo XP original */
+}
+
+/* Reset simples: remove margens/padding padrão do navegador
+   e garante que todo elemento respeite o box-sizing correto */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--xp-font);
+  overflow: hidden; /* evita barras de rolagem no "sistema operacional" */
+  user-select: none; /* evita selecionar texto sem querer ao arrastar janelas */
+}
+
+body {
+  /* Wallpaper de fundo. O usuário pode trocar assets/wallpaper.jpg
+     pela própria imagem, mantendo o mesmo nome de arquivo. */
+  background-image: url("../assets/wallpaper.jpeg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  position: relative;
+}
+
+
+/* -------------------------------------------------------------
+   2. DESKTOP E ÍCONES
+   ------------------------------------------------------------- */
+#desktop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 40px; /* deixa espaço para a taskbar não cobrir os ícones */
+  padding: 16px;
+
+  /* Os ícones ficam organizados em coluna, um embaixo do outro,
+     assim como no Windows XP original */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 4px;
+}
+
+.desktop-icon {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  border: 1px solid transparent; /* fica visível só no hover/seleção */
+  border-radius: 3px;
+  padding: 6px;
+  text-align: center;
+}
+
+/* Efeito de "seleção" azul clássico do XP ao passar o mouse */
+.desktop-icon:hover,
+.desktop-icon:focus {
+  background-color: rgba(51, 94, 168, 0.35);
+  border: 1px dotted #fff;
+}
+
+.desktop-icon .icon-emoji {
+  font-size: 32px;
+  /* Sombra sutil para o ícone se destacar do fundo do wallpaper */
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.6));
+}
+
+.desktop-icon .icon-label {
+  color: #fff;
+  font-size: 12px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+
+/* -------------------------------------------------------------
+   3. JANELAS (WINDOWS)
+   ------------------------------------------------------------- */
+.xp-window {
+  position: absolute;
+  min-width: 320px;
+  min-height: 200px;
+  width: 480px;
+  background-color: var(--xp-window-bg);
+  border: 1px solid var(--xp-blue-dark);
+  border-radius: 8px 8px 3px 3px;
+  /* Sombra para dar profundidade, como uma janela "flutuando" */
+  box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Classe usada pelo JS para esconder janelas fechadas/minimizadas */
+.xp-window.hidden {
+  display: none;
+}
+
+/* Barra de título azul gradiente, marca registrada do XP */
+.title-bar {
+  background: linear-gradient(180deg, var(--xp-blue-light) 0%, var(--xp-blue-dark) 100%);
+  color: #fff;
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: move; /* indica que a barra pode ser arrastada */
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.title-bar-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title-bar-controls {
+  display: flex;
+  gap: 3px;
+}
+
+/* Botões minimizar / maximizar / fechar */
+.title-bar-controls button {
+  width: 20px;
+  height: 18px;
+  font-size: 11px;
+  font-weight: bold;
+  border: 1px solid #fff;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #5b8ad1 0%, #2c5aa0 100%);
+  color: #fff;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.title-bar-controls button:hover {
+  filter: brightness(1.2);
+}
+
+/* O botão de fechar é vermelho para seguir o padrão visual do XP */
+.btn-close {
+  background: linear-gradient(180deg, #e88 0%, #c33 100%) !important;
+}
+
+/* Corpo da janela: onde fica o conteúdo (texto, imagens, listas...) */
+.window-body {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+  color: var(--xp-text-dark);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Janela "em foco" (a última clicada) fica levemente destacada */
+.xp-window.focused .title-bar {
+  background: linear-gradient(180deg, #4a86e8 0%, var(--xp-blue-dark) 100%);
+}
+
+/* --- Conteúdo específico: About --- */
+.about-content {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 3px solid var(--xp-blue-light);
+  flex-shrink: 0;
+}
+
+.about-text h2 {
+  color: var(--xp-blue-dark);
+}
+
+.about-text .subtitle {
+  color: #555;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.about-text hr {
+  border: none;
+  border-top: 1px solid var(--xp-border-gray);
+  margin: 8px 0;
+}
+
+/* --- Conteúdo específico: Resume --- */
+.xp-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: linear-gradient(180deg, #f5f4ea 0%, #d8d6c5 100%);
+  border: 1px solid #8b8b6b;
+  border-radius: 4px;
+  color: var(--xp-text-dark);
+  text-decoration: none;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.xp-button:hover {
+  filter: brightness(1.05);
+}
+
+.xp-button:active {
+  filter: brightness(0.95);
+}
+
+/* --- Conteúdo específico: Experience (linha do tempo) --- */
+.timeline-list {
+  list-style: none;
+}
+
+.timeline-list li {
+  border-left: 3px solid var(--xp-blue-light);
+  padding: 4px 0 12px 12px;
+  margin-bottom: 8px;
+}
+
+.timeline-list .date {
+  display: block;
+  font-size: 11px;
+  color: #555;
+  font-style: italic;
+}
+
+/* --- Conteúdo específico: Skills (grade de habilidades) --- */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.skill-item {
+  background: #fff;
+  border: 1px solid var(--xp-border-gray);
+  border-radius: 4px;
+  padding: 8px;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* --- Conteúdo específico: Projects --- */
+.project-card {
+  background: #fff;
+  border: 1px solid var(--xp-border-gray);
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.project-card h3 {
+  color: var(--xp-blue-dark);
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+/* --- Conteúdo específico: Contact --- */
+.contact-list {
+  list-style: none;
+  margin-top: 8px;
+}
+
+.contact-list li {
+  margin-bottom: 8px;
+}
+
+.contact-list a {
+  color: var(--xp-blue-dark);
+}
+
+
+/* -------------------------------------------------------------
+   4. MENU START
+   ------------------------------------------------------------- */
+#start-menu {
+  position: fixed;
+  bottom: 50px; /* fica logo acima da taskbar */
+  left: 0;
+  width: 260px;
+  background: var(--xp-window-bg);
+  border: 1px solid var(--xp-blue-dark);
+  border-radius: 0 8px 0 0;
+  box-shadow: 3px 0 12px rgba(0, 0, 0, 0.5);
+  z-index: 9999; /* sempre acima das janelas */
+  overflow: hidden;
+}
+
+#start-menu.hidden {
+  display: none;
+}
+
+.start-menu-header {
+  background: linear-gradient(180deg, var(--xp-blue-light) 0%, var(--xp-blue-dark) 100%);
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.start-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.start-menu-list {
+  list-style: none;
+}
+
+.start-menu-list li {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.start-menu-list li:hover {
+  background-color: var(--xp-blue-light);
+  color: #fff;
+}
+
+
+/* -------------------------------------------------------------
+   5. TASKBAR (BARRA DE TAREFAS)
+   ------------------------------------------------------------- */
+#taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(180deg, #2a8ae0 0%, var(--xp-taskbar-bg) 50%, #123f8c 100%);
+  border-top: 2px solid #4ea1f7;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  gap: 8px;
+  z-index: 10000; /* sempre acima de tudo, inclusive do menu Start */
+}
+
+#start-button {
+  height: 30px;
+  padding: 0 14px 0 8px;
+  margin-left: 1vh;
+  background: linear-gradient(180deg, #6fce5c 0%, var(--xp-taskbar-start) 100%);
+  border: 1px solid #1f5c26;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+#start-button:hover {
+  filter: brightness(1.1);
+}
+
+#start-button:active,
+#start-button.active {
+  filter: brightness(0.9);
+  box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Área onde ficam os botões das janelas abertas */
+#taskbar-open-windows {
+  flex: 1;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  height: 100%;
+  align-items: center;
+}
+
+/* Cada botão de janela aberta na taskbar */
+.taskbar-window-btn {
+  height: 28px;
+  max-width: 160px;
+  padding: 0 10px;
+  background: linear-gradient(180deg, #3a7bd5 0%, #1a4fa0 100%);
+  border: 1px solid #123f8c;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Quando a janela está com foco (ativa), o botão fica "pressionado" */
+.taskbar-window-btn.active {
+  background: linear-gradient(180deg, #1a4fa0 0%, #123f8c 100%);
+  box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+#taskbar-clock {
+  height: 30px;
+  padding: 0 12px;
+  margin-right: 1vh;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid #0b3a86;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+
+/* -------------------------------------------------------------
+   6. ANIMAÇÕES
+   ------------------------------------------------------------- */
+
+/* Animação de "abrir": a janela cresce suavemente a partir do centro */
+@keyframes window-open {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.xp-window.opening {
+  animation: window-open 0.15s ease-out;
+}
+
+/* Animação de "minimizar": a janela encolhe em direção à taskbar */
+@keyframes window-minimize {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.4) translateY(300px);
+  }
+}
+
+.xp-window.minimizing {
+  animation: window-minimize 0.2s ease-in forwards;
+}
+
+/* Animação do Start Menu abrindo de baixo para cima */
+@keyframes start-menu-open {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#start-menu:not(.hidden) {
+  animation: start-menu-open 0.15s ease-out;
+}
+
+
+/* -------------------------------------------------------------
+   7. RESPONSIVIDADE (telas pequenas / celular)
+   ------------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* Ícones do desktop ficam um pouco menores para caber mais na tela */
+  .desktop-icon {
+    width: 76px;
+    height: 76px;
+  }
+
+  .desktop-icon .icon-emoji {
+    font-size: 26px;
+  }
+
+  /* Em telas pequenas, as janelas ocupam quase toda a largura
+     e ficam sempre na mesma posição (não faz sentido arrastar
+     livremente em uma tela pequena) */
+  .xp-window {
+    width: 92vw !important;
+    max-height: 80vh;
+    left: 4vw !important;
+    top: 8vh !important;
+  }
+
+  .about-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #start-menu {
+    width: 80vw;
+  }
+
+  .taskbar-window-btn {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 420px) {
+  .desktop-icon .icon-label {
+    font-size: 10px;
+  }
+
+  #start-button {
+    font-size: 12px;
+    padding: 0 8px;
+  }
+
+  #taskbar-clock {
+    font-size: 11px;
+    padding: 0 6px;
+  }
+}
